@@ -1,0 +1,12 @@
+{
+  "scripts": {
+    "watch": "npx tailwindcss -i ./tailwind.css -o ./css/login.css --watch",
+    "build": "npx tailwindcss -i ./tailwind.css -o ./css/login.css --minify"
+  },
+  "devDependencies": {
+    "tailwindcss": "^3.1.6"
+  },
+  "dependencies": {
+    "daisyui": "^2.20.0"
+  }
+}

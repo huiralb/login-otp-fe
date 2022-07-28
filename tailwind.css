@@ -1,0 +1,16 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+[v-cloak]{
+    display: none;
+}
+
+.kuncie-otp-input {
+    @apply kuncie-input border-dark-berry border-0 border-b-2 rounded-none focus:outline-none;
+    @apply text-dark-berry text-2xl font-extrabold;
+    @apply w-14 mx-2;
+}
+.kuncie-otp-input.has-error{
+    @apply border-error text-error;
+}

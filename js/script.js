@@ -2,13 +2,15 @@ new Vue({
   el: "#login-app",
   data: {
     loading: false,
-
     modal: {
       otp: false,
     },
     phone: null,
-    otp: null,
     countdownTimer: 59,
+    authId: getAuthId() || null,
+    token: getToken() || null,
+    loginRequest: false,
+    validateOtpRequest: false,
   },
   mounted() {
     setTimeout(() => {
@@ -24,27 +26,85 @@ new Vue({
         }, 1000)
       }
     },
-    handleOnComplete(value) {
-      console.log("OTP completed: ", value);
-      this.loading = true
+    async handleOnComplete(value) {
+      // console.log("OTP completed: ", value);
+      try {
+        if(!value) {
+          throw 'Something went wrong';
+          return;
+        }
+        
+        setTimeout(async() => {
+          this.loading = true
+          const response = await validateOtp(value)
+          // console.log('response validate otp', response)
+          this.loading = false
+    
+          if(response.status == 200) {
+            this.closeModal()
+            new Toast({
+              message: 'Berhasil login',
+              type: 'success',
+            })
+          }
+          else{
+            throw 'Something went wrong';
+          }
+        }, 100);
+        
+      } catch (error) {
+        new Toast({
+          message: error,
+          type: 'danger',
+        })
+      }
+
     },
     handleOnChange(value) {
-      console.log("OTP changed: ", value);
+      // console.log("OTP changed: ", value);
     },
     handleClearInput(ref) {
       this.$refs[ref].clearInput();
     },
-    login: function () {
-      if (!this.phone) {
-        alert("input phone number");
-        return;
-      }
-      // reset
-      this.loading = false
-      // open modal otp
+    openModal() {
       this.modal.otp = true;
-      this.runTimer()
+    },
+    closeModal() {
+      this.modal.otp = false;
+    },
+    login: async function () {
+      // +xx6288233501905
+      try {
+        if (!this.phone) {
+          throw "input phone number";
+        }
 
+        // reset
+        this.loading = false
+
+        this.loginRequest = true
+        // request
+        const response = await login(this.phone)
+        this.phone = null
+        this.loginRequest = false
+
+        // console.log('response login', response)
+        if(response.status == 200) {
+          this.authId = response.data.authId
+          setAuthId(this.authId)
+          // open modal otp
+          this.openModal()
+          this.runTimer()
+        }
+        else{
+          throw response.message ? response.message : "Error";
+        }
+      } catch (error) {
+        new Toast({
+          message: error,
+          type: 'danger',
+        })
+      }
     },
   },
 });

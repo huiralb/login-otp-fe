@@ -3,6 +3,7 @@
 
 <head>
     <?php wp_head(); ?>
+    <link rel="stylesheet" href="<?php echo get_template_directory_uri() . '/css/Toast.css' ?>" type="text/css" media="all" />
     <link rel="stylesheet" href="<?php echo get_template_directory_uri() . '/css/login.css' ?>" type="text/css" media="all" />
     <link rel="stylesheet" href="<?php echo get_stylesheet_uri(); ?>" type="text/css" media="all" />
 </head>
@@ -20,10 +21,10 @@
 					<div class="kuncie-card-body">
 						<form @submit.prevent="login">
 							<div class="kuncie-form-control">
-								<input type="text" v-model="phone" placeholder="cth: 08123456789" class="kuncie-input kuncie-input-bordered rounded-full" />
+								<input type="text" v-model="phone" name="phone" placeholder="cth: 08123456789" class="kuncie-input kuncie-input-bordered rounded-full" />
 							</div>
 							<div class="kuncie-form-control mt-6">
-								<button type="submit" class="kuncie-btn kuncie-btn-primary rounded-full">Lanjut</button>
+								<button type="submit" class="kuncie-btn kuncie-btn-primary rounded-full" :disabled="loginRequest">Lanjut</button>
 							</div>
 						</form>
 					</div>
@@ -81,9 +82,12 @@
 		</div>
 	</div>
 
-    <script src="<?php echo get_template_directory_uri() . '/js/vue.js' ?>"></script>
-    <script src="<?php echo get_template_directory_uri() . '/js/single-otp-input.js' ?>"></script>
-    <script src="<?php echo get_template_directory_uri() . '/js/otp-input.js' ?>"></script>
+    <script src="<?php echo get_template_directory_uri() . '/js/packages/axios.min.js' ?>"></script>
+    <script src="<?php echo get_template_directory_uri() . '/js/packages/vue.js' ?>"></script>
+    <script src="<?php echo get_template_directory_uri() . '/js/packages/Toast.min.js' ?>"></script>
+    <script src="<?php echo get_template_directory_uri() . '/js/components/single-otp-input.js' ?>"></script>
+    <script src="<?php echo get_template_directory_uri() . '/js/components/otp-input.js' ?>"></script>
+    <script src="<?php echo get_template_directory_uri() . '/js/functions.js' ?>"></script>
     <script src="<?php echo get_template_directory_uri() . '/js/script.js' ?>"></script>
 </body>
 

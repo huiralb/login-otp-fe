@@ -68,7 +68,9 @@ Vue.component('v-otp-input', {
         // Helper to return OTP from input
         checkFilledAllInputs() {
           if (this.otp.join('').length === this.numInputs) {
-            return this.$emit('on-complete', this.otp.join(''));
+            setTimeout(() => {
+              return this.$emit('on-complete', this.otp.join(''));
+            }, 1000);
           }
           return 'Wait until the user enters the required number of characters';
         },
@@ -108,7 +110,10 @@ Vue.component('v-otp-input', {
           const combinedWithPastedData = currentCharsInOtp.concat(pastedData);
           this.$set(this, 'otp', combinedWithPastedData.slice(0, this.numInputs));
           this.focusInput(combinedWithPastedData.slice(0, this.numInputs).length);
-          return this.checkFilledAllInputs();
+          
+          setTimeout(() => {
+            return this.checkFilledAllInputs();
+          }, 1000);
         },
         handleOnChange(value) {
           this.changeCodeAtFocus(value);

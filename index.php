@@ -10,13 +10,9 @@
 
 <body>
 	<div id="login-app" v-cloak>
-		<div class="kuncie-hero min-h-screen bg-base-200">
-			<div class="kuncie-hero-content flex-col lg:flex-row">
-				<div class="text-center lg:text-left">
-					<h1 class="text-5xl font-bold">Login now!</h1>
-					<p class="py-6">Provident cupiditate voluptatem et in. Quaerat fugiat ut assumenda excepturi
-						exercitationem quasi. In deleniti eaque aut repudiandae et a id nisi.</p>
-				</div>
+		<button class="btn btn-primary" @click="openModalLogin">Login</button>
+		<div class="kuncie-modal" :class="{'kuncie-modal-open': modal.login}">
+			<div class="kuncie-modal-box w-full sm:w-4/5 lg:w-3/5 max-w-5xl rounded-md p-4 pb-9 relative">
 				<div class="kuncie-card flex-shrink-0 w-full max-w-sm shadow-2xl bg-base-100">
 					<div class="kuncie-card-body">
 						<form @submit.prevent="login">

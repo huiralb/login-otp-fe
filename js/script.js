@@ -1,9 +1,10 @@
-new Vue({
+window.vmLogin = new Vue({
   el: "#login-app",
   data: {
     loading: false,
     modal: {
       otp: false,
+      login: false,
     },
     phone: null,
     countdownTimer: 59,
@@ -65,6 +66,12 @@ new Vue({
     },
     handleClearInput(ref) {
       this.$refs[ref].clearInput();
+    },
+    openModalLogin() {
+      this.modal.login = true;
+    },
+    closeModalLogin() {
+      this.modal.login = false;
     },
     openModal() {
       this.modal.otp = true;
